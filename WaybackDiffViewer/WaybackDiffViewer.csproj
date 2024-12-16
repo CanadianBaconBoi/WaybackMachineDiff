@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.HtmlRenderer" Version="11.0.0" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1"/>
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics" Version="11.2.1">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="DiffMatchPatch" Version="3.0.0" />
+        <PackageReference Include="DiffPlex" Version="1.7.2" />
+        <PackageReference Include="DiffPlex.Avalonia" Version="0.9.0.1" />
+        <PackageReference Include="htmldiff.net" Version="1.5.0" />
+        <PackageReference Include="HtmlToMarkdownConverter" Version="1.0.8" />
+        <PackageReference Include="Markdown.Avalonia" Version="11.0.3-a1" />
+        <PackageReference Include="Markdown.Avalonia.Html" Version="11.0.3-a1" />
+        <PackageReference Include="Markdown.Avalonia.Svg" Version="11.0.3-a1" />
+        <PackageReference Include="Markdown.Avalonia.SyntaxHigh" Version="11.0.3-a1" />
+        <PackageReference Include="Markdown.Avalonia.Tight" Version="11.0.3-a1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="HtmlAgilityPack">
+        <HintPath>..\..\..\..\..\..\..\home\canadian\.nuget\packages\htmlagilitypack\1.11.61\lib\netstandard2.0\HtmlAgilityPack.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+</Project>

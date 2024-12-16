@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mdxaml="https://github.com/whistyun/Markdown.Avalonia.Tight"
+        mc:Ignorable="d"
+        x:Class="WaybackDiffViewer.MainWindow"
+        RequestedThemeVariant="Dark"
+        WindowStartupLocation="CenterOwner"
+        WindowState="Maximized"
+        Title="Wayback Diff Viewer">
+    <Grid>
+        <Grid Name="SearchView" Width="400" Height="120" VerticalAlignment="Center" HorizontalAlignment="Center" IsVisible="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"></RowDefinition>
+                <RowDefinition Height="45"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="45"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Height="30" Name="UrlInput" Watermark="https://example.com" TextWrapping="NoWrap" />
+            <Button Height="30" Content="Submit" Grid.Row="1" Name="SubmitButton" Click="SubmitButton_OnClick" ClickMode="Release" />
+            <TextBlock Height="30" TextAlignment="Center" Grid.Row="3" Name="ProgressText" Text="Waiting for URL" />
+        </Grid>
+        <Grid Name="DataView" IsVisible="False" RowDefinitions="80,*">
+            <Grid RowDefinitions="*, 14">
+                <Grid ColumnDefinitions="*, *, *">
+                    <ComboBox Height="32" Name="LeftDateSelector" DropDownClosed="OnDateChanged" AutoScrollToSelectedItem="True" Width="300" HorizontalAlignment="Left" />
+                    <TextBlock Grid.Column="1" Height="32" FontSize="24" HorizontalAlignment="Center" TextAlignment="Center" Name="LoadingText" Text="Loading New Diff" IsVisible="False"/>
+                    <Button Grid.Column="1" Height="32" HorizontalAlignment="Center" Name="NewUrlButton" ClickMode="Release" Click="NewUrlButton_OnClick" Content="Select New URL" IsVisible="True"/>
+                    <ComboBox Grid.Column="2" Height="32" Name="RightDateSelector" DropDownClosed="OnDateChanged" AutoScrollToSelectedItem="True" Width="300" HorizontalAlignment="Right" />
+                </Grid>
+                <Grid Grid.Row="1" ColumnDefinitions="*, *">
+                    <TextBlock Name="LeftTitle" TextAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Column="1" Name="RightTitle" TextAlignment="Center"></TextBlock>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" ColumnDefinitions="*, *">
+                <mdxaml:MarkdownScrollViewer LayoutUpdated="LeftViewerScrolled" Name="LeftViewer" Margin="3 3 0 3"/>
+                <mdxaml:MarkdownScrollViewer Grid.Column="1" LayoutUpdated="RightViewerScrolled" Name="RightViewer" Margin="3"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
