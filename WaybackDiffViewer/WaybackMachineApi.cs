@@ -23,7 +23,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Avalonia.Media;
+using System.Web;
 using HtmlAgilityPack;
 using HtmlToMarkdownService;
 
@@ -71,7 +71,7 @@ public class WaybackMachineApi
     private static async Task<String> GetMarkdownForPageAsync(WaybackResult result)
     {
         var res1 = await result.GetHtmlAsync();
-        var res2 = MarkdownConverter.ConvertHtmlToMarkdown(res1.DocumentNode.OuterHtml);
+        var res2 = HttpUtility.HtmlDecode(MarkdownConverter.ConvertHtmlToMarkdown(res1.ParsedText));
         var res3 = LinkRegex.Replace(res2, "($1: $2)");
         return res3;
     }
