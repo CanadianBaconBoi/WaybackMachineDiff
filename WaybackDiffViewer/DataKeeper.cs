@@ -16,7 +16,6 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endregion
 
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -24,7 +23,7 @@ namespace WaybackDiffViewer;
 
 public class DataKeeper
 {
-    private WaybackMachineApi.WaybackResult[] _waybackResults;
+    private readonly WaybackMachineApi.WaybackResult[] _waybackResults;
     
     
     private DataKeeper(WaybackMachineApi.WaybackResult[] results)
@@ -32,12 +31,30 @@ public class DataKeeper
         this._waybackResults = results;
     }
 
-    public static async Task<DataKeeper> From(string webPage, DateTime oldestAllowed, DateTime newestAllowed)
+    public static async Task<DataKeeper> From(string webPage, bool doDeduplication, bool doPersistentCaching)
     {
         List<WaybackMachineApi.WaybackResult> ret = [];
-        await foreach (var result in WaybackMachineApi.PerformSearchAsync(webPage))
+        await foreach (var result in WaybackMachineApi.PerformSearchAsync(webPage, doPersistentCaching))
         {
             ret.Add(result);
+        }
+
+        if (!doDeduplication) return new DataKeeper(ret.ToArray());
+        
+        Stack<int> toRemove = new(); 
+        for (var i = 0; i < ret.Count-1; i++)
+        {
+            var first = await ret[i].GetMarkdownRepresentationAsync();
+            var second = await ret[i + 1].GetMarkdownRepresentationAsync();
+            if (first == second)
+            {
+                toRemove.Push(i+1);
+            }
+        }
+
+        foreach (var index in toRemove)
+        {
+            ret.RemoveAt(index);
         }
 
         return new DataKeeper(ret.ToArray());

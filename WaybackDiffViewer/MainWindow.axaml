@@ -10,7 +10,7 @@
         WindowState="Maximized"
         Title="Wayback Diff Viewer">
     <Grid>
-        <Grid Name="SearchView" Width="400" Height="120" VerticalAlignment="Center" HorizontalAlignment="Center" IsVisible="True">
+        <Grid Name="SearchView" Width="400" Height="160" VerticalAlignment="Center" HorizontalAlignment="Center" IsVisible="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"></RowDefinition>
                 <RowDefinition Height="45"></RowDefinition>
@@ -19,6 +19,30 @@
             </Grid.RowDefinitions>
             <TextBox Height="30" Name="UrlInput" Watermark="https://example.com" TextWrapping="NoWrap" />
             <Button Height="30" Content="Submit" Grid.Row="1" Name="SubmitButton" Click="SubmitButton_OnClick" ClickMode="Release" />
+            <Grid Grid.Row="2">
+                <Grid ColumnDefinitions="Auto, *, Auto">
+                    <CheckBox Name="DoDeduplication" IsChecked="True">
+                        Deduplicate Results? (Slow!)
+                        <ToolTip.Tip>
+                            <StackPanel>
+                                <TextBlock>Archive.org tries to deduplicate pages, however it doesn't just match text content.</TextBlock>
+                                <TextBlock>This will compare the text contents of every page and only return back to back differences.</TextBlock>
+                                <TextBlock FontWeight="Bold">This can be extremely slow the first time.</TextBlock>
+                            </StackPanel>
+                        </ToolTip.Tip>
+                    </CheckBox>
+                    <CheckBox Grid.Column="2" Name="DoCacheResults" IsChecked="True">
+                        Cache Results Across Reboot?
+                        <ToolTip.Tip>
+                            <StackPanel>
+                                <TextBlock>Keep cached Wayback Machine results across reboots.</TextBlock>
+                                <TextBlock>If true, store results in %appdata%/WaybackMachineDiff/ (Windows) or ~/.cache/WaybackMachineDiff (Linux)</TextBlock>
+                                <TextBlock>If false, results are stored in the TEMP directory which wipes on reboot.</TextBlock>
+                            </StackPanel>
+                        </ToolTip.Tip>
+                    </CheckBox>
+                </Grid>
+            </Grid>
             <TextBlock Height="30" TextAlignment="Center" Grid.Row="3" Name="ProgressText" Text="Waiting for URL" />
         </Grid>
         <Grid Name="DataView" IsVisible="False" RowDefinitions="80,*">
