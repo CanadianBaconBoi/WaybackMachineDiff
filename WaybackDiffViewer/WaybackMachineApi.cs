@@ -110,7 +110,7 @@ public static partial class WaybackMachineApi
                 File.Delete(CachePath);
             if (!Directory.Exists(CachePath))
                 Directory.CreateDirectory(CachePath);
-            var htmlDocumentPath = Path.Combine(CachePath, $"{OriginalUrl.Host}{OriginalUrl.LocalPath.Replace(Path.DirectorySeparatorChar, '_')}_{Digest}_{Timestamp:yyyyMMddHHmmss}.html");
+            var htmlDocumentPath = Path.Combine(CachePath, $"{OriginalUrl.Host}{OriginalUrl.LocalPath.Replace('/', '_').Replace('\\', '_')}_{Digest}_{Timestamp:yyyyMMddHHmmss}.html");
             if (!File.Exists(htmlDocumentPath))
             {
                 await using var fileStream = File.Open(htmlDocumentPath, FileMode.OpenOrCreate);
