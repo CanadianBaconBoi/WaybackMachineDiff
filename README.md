@@ -1,4 +1,13 @@
-Avalonia desktop app, enter a url and diff between different versions of the page in markdown. Mostly useful for text only pages.
+## Wayback Diff Viewer
+### Faster than the web client
+
+This is a small tool I put together to more easily comb through wayback machine internet archive results for legal research. It takes in a URL, processes the data, and returns a useable dataset with only textually unique versions of the page.
+
+### Installation
+Download either the Windows or Linux build from the [Latest Release](https://github.com/CanadianBaconBoi/WaybackMachineDiff/releases/latest)
+
+Or, build it using the instructions below.
+
 ### Requirements
 In order to build you need .Net 8.0 or up, download that here
 https://dotnet.microsoft.com/en-us/download/dotnet/8.0
