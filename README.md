@@ -1,6 +1,8 @@
-## Wayback Diff Viewer
-### Faster than the web client
+# Wayback Diff Viewer
+## Faster than the web client
 
+
+### About
 This is a small tool I put together to more easily comb through wayback machine internet archive results for legal research. It takes in a URL, processes the data, and returns a useable dataset with only textually unique versions of the page.
 
 ### Installation
